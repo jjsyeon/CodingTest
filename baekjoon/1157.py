@@ -1,4 +1,4 @@
-s = list(input().lower())
+s = list(input().upper())
 alphabets = list(set(s))
 times = -1
 max_index = -1
@@ -12,4 +12,4 @@ for times in range(len(alphabets)):
         times = 0
         break
 
-if times == len(alphabets) - 1: print(alphabets[max_index].upper())
+if times == len(alphabets) - 1: print(alphabets[max_index])
