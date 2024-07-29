@@ -22,15 +22,14 @@ def solution(board):
         return x, y
     
     queue = deque([start])
-    visited[start[0]][start[1]] = 1
     while queue:
-        x, y, answer = queue.pop()
-        # visited[x][y] = 1
+        x, y, answer = queue.popleft()
+        # if visited[x][y] == 1: continue
         for direction in range(4):
             temp_x, temp_y = move(x,y,direction)
             if board[temp_x][temp_y] == "G":
                 return answer + 1
             if visited[temp_x][temp_y] == 1: continue
             visited[temp_x][temp_y] = 1
-            queue.appendleft([temp_x, temp_y, answer+1])
+            queue.append([temp_x, temp_y, answer+1])
     return -1
