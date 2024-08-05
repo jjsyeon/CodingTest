@@ -3,7 +3,7 @@ def solution(keymap, targets):
     key_dict = dict()
     for key in keymap:
         for idx, alphabet in enumerate(key):
-            if alphabet in key_dict.keys():
+            if alphabet in key_dict:
                 key_dict[alphabet] = min(key_dict[alphabet], idx +1)
             else: key_dict[alphabet] = idx+1
     for target in targets:
