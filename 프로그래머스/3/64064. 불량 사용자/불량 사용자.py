@@ -13,13 +13,11 @@ def solution(user_id, banned_id):
         for u_id in user_id:
             if is_candidate(u_id, b_id): candidate.append(u_id)
         candidate_lst.append(candidate) 
-    # print(candidate_lst,'\n')
-    pool = []
-    # print(list(product(*candidate_lst)),'\n')
+
+    pool = set()
     for case in list(product(*candidate_lst)):
         case = set(case)
         if len(case) == len(banned_id): 
-            pool.append(" ".join(sorted(case)))
-    pool = set(pool)
-    # print(pool)
+            pool.add(" ".join(sorted(case)))
+
     return len(pool)
