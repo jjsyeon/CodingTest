@@ -11,10 +11,11 @@ answer = 1
 for country in medals.keys():
     if country == k: continue
     for i in range(3):
-        if medals[k][i] > medals[country][i] :
+        # print(answer)
+        if medals[k][i] < medals[country][i] :
             answer += 1
             break
-        elif medals[k][i] < medals[country][i] :
+        elif medals[k][i] > medals[country][i] :
             break
-
-print(answer) 
+        
+print(answer)
