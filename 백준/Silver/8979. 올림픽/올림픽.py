@@ -11,7 +11,6 @@ answer = 1
 for country in medals.keys():
     if country == k: continue
     for i in range(3):
-        # print(answer)
         if medals[k][i] < medals[country][i] :
             answer += 1
             break
