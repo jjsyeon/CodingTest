@@ -1,6 +1,3 @@
-import sys
-input = sys.stdin.readline
-
 n, k = map(int, input().split())
 arr = input()
 visited = [0 if item == "H" else 1 for item in arr]
