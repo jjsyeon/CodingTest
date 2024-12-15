@@ -1,2 +1,3 @@
-import math
-print(math.isqrt(int(input())))
+from math import isqrt
+n = int(input())
+print(isqrt(n))
