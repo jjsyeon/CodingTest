@@ -19,4 +19,7 @@ for t in range(T):
                     break
             else: break
             start = i
+            bef_item = item
     print(sum(answer))
+
+
