@@ -12,7 +12,6 @@ for level in range(1,4):
     group = 2**level
     new_cases = [0] * 8
     for i in range(8):
-        new_val = 0
         for j in range((i//group)*group, (i//group)*group + group):
             new_cases[i] += cases[i] * cases[j] * prob[i][j]
             prob[i][j] = 0
