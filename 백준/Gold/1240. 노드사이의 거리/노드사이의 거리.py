@@ -10,11 +10,10 @@ def bfs(start, end):
         for item in graph[v]:
             i, l = item
             if not visited[i] and l != 0:
-                if i == end:
+                if i == end: # 도달하고자하는 점을 찾았을 경우 바로 return
                     return dst + l
                 queue.append((i, dst + l))
                 visited[i] = 1
-    return 0
 
 n, m = map(int, input().split())
 graph = [[] for _ in range(n+1)]
