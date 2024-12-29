@@ -1,31 +1,20 @@
+from collections import Counter
 import sys
 input = sys.stdin.readline
+
 word_dict = []
+while (word:=input().rstrip()) != '-':
+    word_dict.append(Counter(word))
 
-while True:
-    word = input().rstrip()
-    if word == '-': break
-    word_dict.append(word)
+while (board:=input().rstrip()) != '#':
+    board = Counter(board)
+    frequency = {k:0 for k in board.keys()}
+    for word in word_dict:
+        for k, v in word.items():
+            if k not in board.keys() or v > board[k]: break
+        else:
+            for w in word.keys(): frequency[w] += 1
 
-check_list = []
-while True:
-    board = input().rstrip()
-    if board == '#': break
-    check_list.append(board)
-
-for i in check_list:
-    freq = {}
-    for j in i:
-        freq[j] = 0
-        for k in word_dict:
-            if j in k:
-                available = True
-                for l in k:
-                    if k.count(l) > i.count(l):
-                        available = False
-                        break
-                if available:
-                    freq[j] += 1
-    min_, max_ = min(freq.values()), max(freq.values())
-    print(''.join(sorted([k for k,v in freq.items() if v == min_])), min_, end=' ')
-    print(''.join(sorted([k for k,v in freq.items() if v == max_])), max_)
+    min_, max_ = min(frequency.values()), max(frequency.values())
+    print(''.join(sorted([k for k in frequency.keys() if frequency[k] == min_])), min_, end=' ')
+    print(''.join(sorted([k for k in frequency.keys() if frequency[k] == max_])), max_)
