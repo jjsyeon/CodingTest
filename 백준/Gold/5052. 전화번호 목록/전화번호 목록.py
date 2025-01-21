@@ -10,7 +10,6 @@ for _ in range(t):
     for i in range(cnt-1):
         if nums[i] == nums[i+1][:len(nums[i])]: 
             answer = 'NO'
-            i = j = cnt
             break
     result.append(answer)       
 
