@@ -18,16 +18,15 @@ def bfs(x,y,h):
             if 0<=mx<n and 0<=my<n and visited[mx][my] == 0 and table[x][y] > h:
                 visited[mx][my] = 1
                 queue.append((mx,my))
-
-answer = []
-for h in range(101):
+min_h, max_h = min([min(lst) for lst in table]), max([max(lst) for lst in table])
+answer = [1]
+for h in range(min_h, max_h):
     cnt = 0
     visited = [[0] * n for _ in range(n)]
     for x in range(n):
         for y in range(n):
             if visited[x][y] == 0 and table[x][y] > h : 
                 cnt += 1
-                # dfs(x,y,h)
                 bfs(x,y,h)
             else: visited[x][y] = 1
     answer.append(cnt)
