@@ -1,3 +1,4 @@
+
 import java.io.*;
 import java.util.*;
 
@@ -8,8 +9,7 @@ public class Main {
     static int n;
     static int [][] graph;
     static int [][] visited;
-    static int inf;
-    static PriorityQueue<int[]> heap;
+    static int inf = Integer.MAX_VALUE;
     static int[] dx = {1, 0, -1, 0};
     static int[] dy = {0, 1, 0, -1};
 
@@ -25,11 +25,12 @@ public class Main {
                     visited[i][j] = inf;
                 }
             }
-            heap = new PriorityQueue<>(Comparator.comparingInt(a -> a[0]));
+            PriorityQueue<int[]> heap = new PriorityQueue<>(Comparator.comparingInt(a -> a[0]));
             heap.add(new int[] {graph[0][0], 0, 0});
             visited[0][0] = graph[0][0];
             while (!heap.isEmpty()) {
                 int[] item = heap.poll();
+                if (item[0] == n-1 && item[1]==n-1) break;
                 if (visited[item[1]][item[2]] < item[0]) continue;
                 for (int i = 0; i < 4; i++) {
                     int mx = item[1] + dx[i], my = item[2] + dy[i];
@@ -39,7 +40,7 @@ public class Main {
                     }
                 }
             }
-        System.out.printf("Problem %d: %d\n",t++, visited[n-1][n-1]);
+            System.out.printf("Problem %d: %d\n",t++, visited[n-1][n-1]);
         }
     }
 }
