@@ -12,7 +12,7 @@ for attack in range(t):
         print(f"YES\n{attack}")
         break
     elif g == 1: 
-        print("NO\n1" if h == 1 else "YES\n{attack}")
+        print("NO\n1")
         break
     heapq.heappush(giants, -(g//2))
 else:
