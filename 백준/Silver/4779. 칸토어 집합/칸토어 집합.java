@@ -13,13 +13,13 @@ public class Main {
                 break;
             }
         }
-
         System.out.println(sb);
     }
 
     static String dnc(int N) {
         if (N == 0) return "-";
         StringBuilder sb = new StringBuilder();
-        return dnc(N - 1) + " ".repeat((int)(Math.pow(3, N-1))) + dnc(N - 1);
+        String tmp = dnc(N-1);
+        return sb.append(tmp).append(" ".repeat((int)(Math.pow(3, N-1)))).append(tmp).toString();
     }
 }
