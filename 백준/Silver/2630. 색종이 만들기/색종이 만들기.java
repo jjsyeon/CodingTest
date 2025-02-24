@@ -1,17 +1,17 @@
 import java.io.*;
-import java.util.*;
 
 public class Main {
     static int [][] paper;
     static int whitePaper, bluePaper;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
+//        StringTokenizer st;
+        String line;
         int N = Integer.parseInt(br.readLine());
         paper = new int [N][N];
         for (int i = 0; i < N; i++) {
-            st = new StringTokenizer(br.readLine());
-            for (int j = 0; j < N; j++) paper[i][j] = Integer.parseInt(st.nextToken());
+            line = br.readLine();
+            for (int j = 0; j < N; j++) paper[i][j] = line.charAt(j*2) == '1'? 1 : 0;
         }
         cntPaper(N, 0, 0);
         System.out.println(whitePaper);
