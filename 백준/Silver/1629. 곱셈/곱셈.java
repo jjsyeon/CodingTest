@@ -14,7 +14,7 @@ public class Main {
     }
     static long dnc(long idx) {
         if (idx == 1) return A%C; // 재귀 탈출 조건
-        long tmp = dnc(idx/2);
-        return ((idx%2==0? 1:A%C) * (tmp * tmp % C))%C;
+        long tmp = dnc(idx/2)%C;
+        return ((idx%2==0? 1:A) * (tmp * tmp % C)) % C;
     }
 }
