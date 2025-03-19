@@ -1,35 +1,25 @@
 
 public class Solution {
-    static int[] answer = {-1};
-    static int[] visited = new int[11];
-    static int[] apeech = new int[11];
-    static int max = 0, arrow;
-
+    int[] answer = {-1};
+    int[] visited = new int[11];
+    int[] apeech;
+    int max = 0, arrow;
 
     public int[] solution(int n, int[] info) {
-        for (int i = 0; i < 11; i++) apeech[i] = info[i];
+        apeech = info.clone();
         arrow = n;
         backtrack(0, 9);
         
         return answer;
     }
 
-    public static void backtrack(int cnt, int idx ){
+    public void backtrack(int cnt, int idx ){
         if (cnt == arrow || idx < 0) {
             int diff = calc();
-            if (max < diff) {
+            if (max < diff || (diff == max && answer[answer.length-1] < arrow-cnt)) {
                 max = diff;
                 answer = visited.clone();
                 answer[10] = arrow-cnt;
-            }
-            else if (diff == max && max != 0){
-                visited[10] = arrow-cnt;
-                for(int i = 10; i>= 0; i--){
-                    if (answer[i] > visited[i]) return;
-                    else if (answer[i] > visited[i]) break;
-                }
-                answer = visited.clone();
-                visited[10] = 0;
             }
         }
 
@@ -41,7 +31,7 @@ public class Solution {
         }
     }
 
-    public static int calc() {
+    public int calc() {
         int score = 0;
         for (int i = 0; i < 11; i++) {
             if (visited[i] == 0 && apeech[i] == 0) continue;
