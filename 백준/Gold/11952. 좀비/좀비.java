@@ -53,9 +53,7 @@ public class Main {
                     queue.add(new int[]{next, dist + 1});
                 }
             }
-        }
-
-        // 다익스트라
+        }// 다익스트라
         Long[] dist = new Long[N + 1];
         Arrays.fill(dist, Long.MAX_VALUE);
         dist[1] = 0L;
@@ -67,7 +65,10 @@ public class Main {
             long[] curr = pq.poll();
             long cost = curr[0] ;
             int city = (int)curr[1];
-
+            if (city == N) {
+                System.out.println(cost);
+                break;
+            }
             if (cost > dist[city]) continue;
 
             for (int next : map[city]) {
@@ -80,6 +81,5 @@ public class Main {
             }
         }
 
-        System.out.println(dist[N]);
     }
 }
