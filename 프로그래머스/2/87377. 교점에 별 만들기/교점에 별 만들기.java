@@ -10,14 +10,11 @@ class Solution {
                 long a = line[i][0], b = line[i][1], e = line[i][2];
                 long c = line[j][0], d = line[j][1], f = line[j][2];
                 long x = b*f-e*d, y = e*c-a*f, r=a*d-b*c;
-                // System.out.printf("%d %d %d\n", x, y, r);
                 if (r == 0) continue;
-                if ((x > 0 && x < r) || (x<0 && x>r) || x % r != 0 || (y> 0 && y< r) || (y<0 && y>r) || y % r != 0) continue;
-                // if ((x != 0 && Math.abs(x) < Math.abs(r)) || x % r != 0 || (y!= 0 && Math.abs(y) < Math.abs(r)) || y % r != 0) continue;
+                if ((x != 0 && Math.abs(x) < Math.abs(r)) || x % r != 0 || (y!= 0 && Math.abs(y) < Math.abs(r)) || y % r != 0) continue;
                 x /= r; y /= r;
                 maxX = Math.max(maxX, x); minX = Math.min(minX, x); 
                 maxY = Math.max(maxY, y); minY = Math.min(minY, y); 
-                // System.out.printf(">> %d %d %d\n", x, y, r);
                 dots.add(new long[] {x,y});
             }
         }
