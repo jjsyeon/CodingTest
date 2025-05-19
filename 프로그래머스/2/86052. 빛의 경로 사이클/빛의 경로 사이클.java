@@ -1,68 +1,48 @@
 import java.util.*;
 
 class Solution {
-
-    char[][] grid;
-    int[] dx = {-1, 0, 1, 0};  // 상 우 하 좌
-    int[] dy = {0, 1, 0, -1};
-
-    // main entry
+    char [][] map;
+    int [][][] visited;
+    int row, col;
+    
     public int[] solution(String[] grid) {
-        int rows = grid.length;
-        int cols = grid[0].length();
-
-        this.grid = new char[rows][cols];
-        for (int i = 0; i < rows; i++) {
-            this.grid[i] = grid[i].toCharArray();
+        List<Integer> result = new ArrayList<>();
+        row = grid.length; col = grid[0].length();
+        map = new char[row][col];
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++)
+                map[i][j]= grid[i].charAt(j);
         }
-
-        return findCycle(rows, cols);
-    }
-
-    // 모든 (행, 열, 방향) 상태에서 사이클 탐색
-    public int[] findCycle(int rows, int cols) {
-        List<Integer> cycleCount = new ArrayList<>();
-        boolean[][][] visited = new boolean[rows][cols][4];  // (row, col, dir) 방문 여부
-
-        // 모든 좌표 (row, col)와 모든 방향(dir)에 대해 순환 경로 탐색 시도
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                for (int dir = 0; dir < 4; dir++) {
-
-                    // 해당 상태(위치 + 방향)를 이미 방문한 경우는 건너뜀
-                    if (visited[row][col][dir]) continue;
-
-                    // 방문하지 않은 경로면 trace()로 순환 경로 길이 추적
-                    int cycleLength = trace(row, col, dir, visited, rows, cols);
-                    cycleCount.add(cycleLength);
+        visited = new int[row][col][4]; // 왼 위 오 아 순서
+        
+        for (int x = 0; x < row; x++) {
+            for (int y = 0; y < col; y++) {
+                for (int d = 0; d < 4; d++) {
+                    if (visited[x][y][d] != 0) continue;
+                    result.add(getNext(x, y, d));
                 }
             }
         }
-
-        return cycleCount.stream()
+        return result.stream()
                         .mapToInt(Integer::intValue)
                         .sorted()  // 오름차순 정렬
                         .toArray();
     }
-
-    // 한 사이클을 추적하여 길이를 반환
-    public int trace(int row, int col, int dir, boolean[][][] visited, int rows, int cols) {
-        int count = 0;
-
-        while (!visited[row][col][dir]) {
-            visited[row][col][dir] = true;
-            count++;
-
-            // 현재 위치의 명령에 따라 방향 회전
-            char c = grid[row][col];
-            if (c == 'L') dir = (dir + 3) % 4;  // 좌회전
-            else if (c == 'R') dir = (dir + 1) % 4;  // 우회전
-
-            // 회전된 방향대로 한 칸 이동 (wrap-around)
-            row = (row + dx[dir] + rows) % rows;
-            col = (col + dy[dir] + cols) % cols;
+    
+    int getNext(int x, int y, int dir) {
+        // int x =  start / row, y = start % row;
+        int cnt = 1;
+        while (visited[x][y][dir] == 0) {
+            visited[x][y][dir] = cnt++;
+            if (map[x][y] == 'L') { dir = (dir + 3) % 4; }
+            else if (map[x][y] == 'R') { dir = (dir + 1) % 4; }
+            
+            if (dir == 0) y = (y + 1) % col;
+            else if (dir == 1) x = (x + 1) % row;
+            else if (dir == 2) y = (col + y - 1) % col;
+            else x = (row + x - 1) % row;
         }
-
-        return count;
+        return cnt - visited[x][y][dir];
     }
+
 }
