@@ -19,7 +19,7 @@ class Solution {
             for (int y = 0; y < col; y++) {
                 for (int d = 0; d < 4; d++) {
                     if (visited[x][y][d] != 0) continue;
-                    result.add(getNext(x, y, d));
+                    result.add(getCycle(x, y, d));
                 }
             }
         }
@@ -29,20 +29,23 @@ class Solution {
                         .toArray();
     }
     
-    int getNext(int x, int y, int dir) {
-        // int x =  start / row, y = start % row;
+    int getCycle(int x, int y, int dir) {
         int cnt = 1;
-        while (visited[x][y][dir] == 0) {
-            visited[x][y][dir] = cnt++;
+        while (visited[x][y][dir] == 0) { // 이미 방문했던 노드에 재방문 하는 경우 종료
+            visited[x][y][dir] = cnt++; // 방문까지 몇칸 이동했는지 저장
+            
+            // 방문 노드(S, L, R) 에 맞게 방향 수정
             if (map[x][y] == 'L') { dir = (dir + 3) % 4; }
             else if (map[x][y] == 'R') { dir = (dir + 1) % 4; }
             
+            // 다음 방문 노드의 좌표 구하기
             if (dir == 0) y = (y + 1) % col;
             else if (dir == 1) x = (x + 1) % row;
             else if (dir == 2) y = (col + y - 1) % col;
             else x = (row + x - 1) % row;
         }
-        return cnt - visited[x][y][dir];
+        
+        return cnt - visited[x][y][dir]; // 이전에 방문했던 칸 까지의 이동 거리를 전체 이동거리에서 빼줌
     }
 
 }
